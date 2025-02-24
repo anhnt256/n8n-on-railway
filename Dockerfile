@@ -1,11 +1,6 @@
-FROM n8nio/n8n
-
-USER root
-
-RUN npm install -g googleapis
-
-USER node
-
-EXPOSE 5678
-
-CMD ["n8n", "start"]
+FROM node:18-alpine
+WORKDIR /home/node
+COPY . .
+RUN npm install
+RUN npm install googleapis  # Thêm dòng này
+CMD ["n8n"]
