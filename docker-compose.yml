@@ -1,0 +1,27 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  n8n:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5678:5678"
+    environment:
+      - NODE_FUNCTION_ALLOW_EXTERNAL=googleapis,lodash,moment
+      - N8N_SKIP_WEBHOOK_VALIDATION=true
+      - N8N_VM_TIMEOUT=30000
+      - N8N_METRICS=false
+      - N8N_DIAGNOSTICS=false
+      - N8N_USER_FOLDER=/home/node/.n8n
+      - NODE_ENV=production
+      - N8N_SYNC_NODE_PACKAGES_FOLDERS_ON_STARTUP=true
+      - GENERIC_TIMEZONE=Asia/Ho_Chi_Minh
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - n8n_modules:/usr/local/lib/node_modules/n8n/node_modules
+
+volumes:
+  n8n_data:
+  n8n_modules:
